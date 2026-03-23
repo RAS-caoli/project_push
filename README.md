@@ -14,13 +14,13 @@
 
 - 通过按钮打开系统文件夹选择器，切换当前项目路径
 - 在页面中实时显示当前项目路径
-- 在 `push/data/accounts.json` 中保存多个账号，并一键切换
+- 在 `project_push/data/accounts.json` 中保存多个账号，并一键切换
 - 在页面日志区查看每一步 Git 命令执行结果
 
 ## 目录结构
 
 ```text
-push/
+project_push/
 ├─ app.py
 ├─ data/
 │  └─ accounts.json
@@ -38,7 +38,7 @@ push/
 
 ### Windows
 
-在 `push` 目录中执行：
+在 `project_push` 目录中执行：
 
 ```powershell
 .\start_push_tool.ps1
@@ -61,7 +61,7 @@ http://127.0.0.1:8765
 ### Linux / macOS
 
 ```bash
-cd /path/to/push
+cd /path/to/project_push
 bash ./start_push_tool.sh
 ```
 
@@ -71,7 +71,7 @@ bash ./start_push_tool.sh
 
 - 在账号卡片中填写 `name`、`email`、`PAT`
 - 点击 `保存账号信息`
-- 账号会保存到 `push/data/accounts.json`
+- 账号会保存到 `project_push/data/accounts.json`
 - 切换下拉框即可切换不同 GitHub 账号
 
 说明：
@@ -117,7 +117,7 @@ bash ./start_push_tool.sh
 
 这意味着：
 
-- 页面里填写的 PAT 会保存到 `push/data/accounts.json`
+- 页面里填写的 PAT 会保存到 `project_push/data/accounts.json`
 - `origin` 地址仍然保持普通 HTTPS 仓库地址
 - 不会自动把 token 写进 `.git/config` 的远程 URL 中
 
@@ -125,7 +125,7 @@ bash ./start_push_tool.sh
 
 - 这个工具适合在你自己的电脑本地使用
 - 页面默认绑定到 `127.0.0.1`，这样更适合处理 PAT
-- `push/data/accounts.json` 中包含明文 PAT，请不要把这个文件提交到公开仓库
+- `project_push/data/accounts.json` 中包含明文 PAT，请不要把这个文件提交到公开仓库
 - 如果项目目录还不是 Git 仓库，请先执行 `初始化 git 仓库`
 - 如果 `origin` 已存在，绑定远程仓库会自动修改为设置的 GitHub 仓库地址
 - 提交时会自动把当前选中账号的 `name` 和 `email` 写入该仓库的本地 Git 配置
