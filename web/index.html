@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub 多账号推送工具</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Local Git Workflow</p>
+          <h1>GitHub 多账号推送工具</h1>
+          <p class="hero-text">
+            在一个页面里切换 GitHub 账号、选择项目路径，并按顺序完成初始化、提交和推送。
+          </p>
+        </div>
+        <div class="path-panel">
+          <span class="path-label">当前项目路径</span>
+          <code id="currentPath">未选择项目路径</code>
+          <button id="selectPathBtn" class="primary wide">选择项目路径</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="card">
+          <div class="card-head">
+            <h2>账号管理</h2>
+            <p>支持保存多个 GitHub 账号并快速切换。</p>
+          </div>
+
+          <label class="field">
+            <span>已保存账号</span>
+            <select id="accountSwitcher"></select>
+          </label>
+
+          <label class="field">
+            <span>Name</span>
+            <input id="nameInput" type="text" placeholder="Git 提交用户名" />
+          </label>
+
+          <label class="field">
+            <span>Email</span>
+            <input id="emailInput" type="email" placeholder="Git 提交邮箱" />
+          </label>
+
+          <label class="field">
+            <span>PAT</span>
+            <input id="patInput" type="password" placeholder="GitHub Personal Access Token" />
+          </label>
+
+          <div class="actions two-up">
+            <button id="saveAccountBtn" class="primary">保存账号信息</button>
+            <button id="deleteAccountBtn" class="ghost">删除当前账号</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>仓库信息</h2>
+            <p>提交信息和远程仓库地址会和按钮操作联动。</p>
+          </div>
+
+          <label class="field">
+            <span>Commit Message</span>
+            <input id="commitMessageInput" type="text" value="first commit" />
+          </label>
+
+          <label class="field">
+            <span>GitHub 仓库地址</span>
+            <input id="remoteUrlInput" type="url" placeholder="https://github.com/用户名/仓库名.git" />
+          </label>
+
+          <div class="repo-summary" id="repoSummary">
+            <div>
+              <span class="meta-label">Git 仓库</span>
+              <strong id="repoState">未检测</strong>
+            </div>
+            <div>
+              <span class="meta-label">当前分支</span>
+              <strong id="branchState">-</strong>
+            </div>
+            <div>
+              <span class="meta-label">Origin</span>
+              <strong id="remoteState">-</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="card card-wide">
+          <div class="card-head">
+            <h2>Git 操作按钮</h2>
+            <p>每次执行结果都会写入下方日志区域。</p>
+          </div>
+
+          <div class="actions action-grid">
+            <button data-action="init">初始化 git 仓库</button>
+            <button data-action="add">添加文件到暂存区</button>
+            <button data-action="commit">提交到本地仓库</button>
+            <button data-action="branch_main">设置主分支为 main</button>
+            <button data-action="remote_add">绑定远程 GitHub 仓库</button>
+            <button data-action="push" class="primary">推送到 GitHub</button>
+          </div>
+
+          <div class="log-card">
+            <div class="log-head">
+              <h3>执行日志</h3>
+              <button id="clearLogBtn" class="ghost small">清空日志</button>
+            </div>
+            <pre id="logOutput">等待操作...</pre>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
