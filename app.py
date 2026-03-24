@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 import base64
 import json
 import os
@@ -280,6 +280,13 @@ def handle_action(payload: dict[str, object]) -> dict[str, object]:
         else:
             result = run_git_command(["remote", "add", "origin", remote_url], cwd=project_dir)
             logs.append(format_command_output(["git", "remote", "add", "origin", remote_url], result))
+    elif action == "clone":
+        if not remote_url:
+            raise RuntimeError("请先填写 GitHub 仓库地址。")
+
+        # Clone into the selected project path directly.
+        result = run_git_command(["clone", remote_url, "."], cwd=project_dir)
+        logs.append(format_command_output(["git", "clone", remote_url, "."], result))
     elif action == "push":
         extra_configs: list[tuple[str, str]] = []
         if account:

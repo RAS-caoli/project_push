@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -13,13 +13,20 @@
           <p class="eyebrow">Local Git Workflow</p>
           <h1>GitHub 多账号推送工具</h1>
           <p class="hero-text">
-            在一个页面里切换 GitHub 账号、选择项目路径，并按顺序完成初始化、提交和推送。
+            在本地网页里切换 GitHub 账号、选择项目路径，并按顺序完成初始化、提交和推送。
           </p>
         </div>
         <div class="path-panel">
           <span class="path-label">当前项目路径</span>
           <code id="currentPath">未选择项目路径</code>
           <button id="selectPathBtn" class="primary wide">选择项目路径</button>
+          <button
+            class="primary wide"
+            type="button"
+            onclick="window.open('https://github.com/', '_blank', 'noopener,noreferrer')"
+          >
+            进入 GitHub 官网
+          </button>
         </div>
       </header>
 
@@ -52,7 +59,7 @@
 
           <div class="actions two-up">
             <button id="saveAccountBtn" class="primary">保存账号信息</button>
-            <button id="deleteAccountBtn" class="ghost">删除当前账号</button>
+            <button id="deleteAccountBtn" class="primary">删除当前账号</button>
           </div>
         </section>
 
@@ -71,6 +78,9 @@
             <span>GitHub 仓库地址</span>
             <input id="remoteUrlInput" type="url" placeholder="https://github.com/用户名/仓库名.git" />
           </label>
+          <div class="actions">
+            <button data-action="clone" class="primary">克隆远程 GitHub 仓库</button>
+          </div>
 
           <div class="repo-summary" id="repoSummary">
             <div>
@@ -91,13 +101,13 @@
         <section class="card card-wide">
           <div class="card-head">
             <h2>Git 操作按钮</h2>
-            <p>每次执行结果都会写入下方日志区域。</p>
+            <p>首次推送需按顺序点击全部按钮,更新推送只需按顺序点击橙色按钮即可，每次执行结果都会写入下方日志区域。</p>
           </div>
 
           <div class="actions action-grid">
             <button data-action="init">初始化 git 仓库</button>
-            <button data-action="add">添加文件到暂存区</button>
-            <button data-action="commit">提交到本地仓库</button>
+            <button data-action="add" class="primary">添加文件到暂存区</button>
+            <button data-action="commit" class="primary">提交到本地仓库</button>
             <button data-action="branch_main">设置主分支为 main</button>
             <button data-action="remote_add">绑定远程 GitHub 仓库</button>
             <button data-action="push" class="primary">推送到 GitHub</button>
