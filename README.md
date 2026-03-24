@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿# GitHub 多账号推送工具
+﻿# GitHub 多账号推送工具
 
 这是一个本地运行的 Web 工具，用来在不同 GitHub 账号之间切换，通过按钮完成常见 Git 推送流程：
 
@@ -160,6 +160,6 @@ bash ./start_push_tool.sh
 
 前端是原生 HTML + CSS + JavaScript，无需额外安装依赖。
 
-## 页面展示
+## 使用演示
 
-<img src="./images/001.png"  />
+<img src="./images/001.gif"  />
