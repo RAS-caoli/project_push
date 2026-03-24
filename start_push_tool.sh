@@ -4,6 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-8765}"
+MAX_PORT_TRIES="${MAX_PORT_TRIES:-20}"
 
 PYTHON_BIN="${PYTHON_BIN:-}"
 if [[ -z "${PYTHON_BIN}" ]]; then
@@ -20,6 +21,43 @@ if [[ -z "${PYTHON_BIN}" ]]; then
   echo "Error: Python is required to run app.py." >&2
   exit 1
 fi
+
+find_available_port() {
+  local host="$1"
+  local start_port="$2"
+  local max_tries="$3"
+  local current_port="$start_port"
+  local i
+
+  for ((i = 0; i < max_tries; i++)); do
+    if "$PYTHON_BIN" - "$host" "$current_port" <<'PY' >/dev/null 2>&1
+import socket
+import sys
+
+host = sys.argv[1]
+port = int(sys.argv[2])
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+    s.bind((host, port))
+except OSError:
+    sys.exit(1)
+finally:
+    s.close()
+sys.exit(0)
+PY
+    then
+      echo "$current_port"
+      return 0
+    fi
+    current_port=$((current_port + 1))
+  done
+
+  echo "Error: no available port found from ${start_port} (tried ${max_tries} ports)." >&2
+  return 1
+}
+
+PORT="$(find_available_port "$HOST" "$PORT" "$MAX_PORT_TRIES")"
+echo "Starting tool at http://${HOST}:${PORT}"
 
 # `app.py` contains annotations using PEP 604 (e.g. X | None).
 # On Python < 3.10 those annotations may be evaluated at import time and crash.
